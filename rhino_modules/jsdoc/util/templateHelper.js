@@ -95,8 +95,15 @@ function toLink(longname, content) {
         }
     }
     else {
-	    url = linkMap.longnameToUrl[longname];
-	}
+        // Has link text been specified {@link namespace.class#method|specialDescription}
+        var split = longname.indexOf('|');
+        if (split !== -1) {
+            content = longname.substr(split + 1);
+            url = longname.substr(0, split);
+        }
+
+        url = linkMap.longnameToUrl[url];
+    }
     
     content = content || longname;
     
